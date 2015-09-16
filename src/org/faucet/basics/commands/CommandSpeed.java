@@ -3,9 +3,16 @@ package org.faucet.basics.commands;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
+import org.faucet.basics.api.UUIDFetcher;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.UUID;
 
 public class CommandSpeed extends BukkitCommand {
     public CommandSpeed(String name) {
@@ -30,16 +37,27 @@ public class CommandSpeed extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
-        Player chosenPlayer = Bukkit.getPlayer(args[4]);
+        UUIDFetcher fetcher = new UUIDFetcher(Arrays.asList(args[3]));
+        Player chosenPlayer = null;
+        Map<String, UUID> chosensUUID = null;
+        boolean success = false;
+        try{
+            chosensUUID = fetcher.call();
+            success = true;
+        }catch (Exception e){
+            success = false;
+        }
+        UUID uuid = chosensUUID.get(args[3]);
+        chosenPlayer = Bukkit.getServer().getPlayer(uuid);
         String mode1 = "WALK";
         String mode3 = "FLY";
-        if(args[2].equalsIgnoreCase(mode1)){
+        if(args[2].equalsIgnoreCase(mode1) && success == true){
             int speed = Integer.parseInt(args[3]);
             chosenPlayer.setWalkSpeed(speed);
             sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just attempted to set the specified player's walkspeed.");
             return true;
         }
-        if(args[2].equalsIgnoreCase(mode3)){
+        if(args[2].equalsIgnoreCase(mode3) && success == true){
             int speed = Integer.parseInt(args[3]);
             chosenPlayer.setFlySpeed(speed);
             sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just attempted to set the specified player's walkspeed.");
