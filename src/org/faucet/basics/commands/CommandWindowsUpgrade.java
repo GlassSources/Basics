@@ -18,7 +18,7 @@ public class CommandWindowsUpgrade extends BukkitCommand {
             return true;
         }
 
-        if (args.length != 0) {
+        if (args.length > 1) {
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
