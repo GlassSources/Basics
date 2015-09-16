@@ -1,0 +1,4 @@
+name: Basics
+version: 1.0
+author: FaucetTeam
+main: org.faucet.basics.Basics
