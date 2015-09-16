@@ -1,0 +1,2 @@
+# Basics
+This alternative gives you the latest in features and providing a updated implementation and built natively using SpigotAPI. We also are determined to create a more lightweight jar and faster command handling then the regular way to handle SpigotCommands.
