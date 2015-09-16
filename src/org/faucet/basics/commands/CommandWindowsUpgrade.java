@@ -8,7 +8,7 @@ public class CommandWindowsUpgrade extends BukkitCommand {
     public CommandWindowsUpgrade(String name){
         super(name);
         this.description = "Upgrade your PC to Microsoft Windows 10. (joke command)";
-        this.usageMessage = "/windows10upgrade";
+        this.usageMessage = "Usage: /windows10upgrade";
         this.setPermission("basics.windowsupdate");
     }
     @Override
@@ -18,8 +18,8 @@ public class CommandWindowsUpgrade extends BukkitCommand {
             return true;
         }
 
-        if (args.length != 1) {
-            sender.sendMessage(this.getUsage());
+        if (args.length != 0) {
+            sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
         sender.sendMessage(ChatColor.RED + "Sorry, but you cannot upgrade to Windows 10 via Minecraft.");
