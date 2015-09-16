@@ -26,6 +26,10 @@ public class CommandSpeed extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
+        if(args.length < 4){
+            sender.sendMessage(ChatColor.RED + this.getUsage());
+            return true;
+        }
         Player chosenPlayer = Bukkit.getPlayer(args[4]);
         String mode1 = "WALK";
         String mode3 = "FLY";
