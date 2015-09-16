@@ -22,11 +22,11 @@ public class CommandSpeed extends BukkitCommand {
             return true;
         }
 
-        if (args.length > 4) {
+        if (args.length > 3) {
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
-        if(args.length < 4){
+        if(args.length < 3){
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
