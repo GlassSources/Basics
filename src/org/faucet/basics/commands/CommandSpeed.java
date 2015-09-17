@@ -37,27 +37,17 @@ public class CommandSpeed extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
-        UUIDFetcher fetcher = new UUIDFetcher(Arrays.asList(args[3]));
-        Player chosenPlayer = null;
-        Map<String, UUID> chosensUUID = null;
-        boolean success = false;
-        try{
-            chosensUUID = fetcher.call();
-            success = true;
-        }catch (Exception e){
-            success = false;
-        }
-        UUID uuid = chosensUUID.get(args[3]);
-        chosenPlayer = Bukkit.getServer().getPlayer(uuid);
+        Player chosenOne = Bukkit.getServer().getPlayer(args[3]);
+        Player chosenPlayer = chosenOne;
         String mode1 = "WALK";
         String mode3 = "FLY";
-        if(args[2].equalsIgnoreCase(mode1) && success == true){
+        if(args[2].equalsIgnoreCase(mode1)){
             int speed = Integer.parseInt(args[3]);
             chosenPlayer.setWalkSpeed(speed);
             sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just attempted to set the specified player's walkspeed.");
             return true;
         }
-        if(args[2].equalsIgnoreCase(mode3) && success == true){
+        if(args[2].equalsIgnoreCase(mode3)){
             int speed = Integer.parseInt(args[3]);
             chosenPlayer.setFlySpeed(speed);
             sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just attempted to set the specified player's walkspeed.");
