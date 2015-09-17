@@ -7,7 +7,6 @@ import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
-import org.faucet.basics.api.UUIDFetcher;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
