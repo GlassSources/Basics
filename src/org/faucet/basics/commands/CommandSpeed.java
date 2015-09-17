@@ -29,22 +29,23 @@ public class CommandSpeed extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
-        Player chosenPlayer = null;
-        try{
-            chosenPlayer = Bukkit.getPlayer(args[3]);
-        }catch(NullPointerException e){
-            sender.sendMessage(ChatColor.RED + "[Basics] Player specified was not found.");
+        Player chosenPlayer = Bukkit.getPlayer(args[3]);
+        boolean success = false;
+        if(chosenPlayer != null){
+            success = true;
+        }else if(chosenPlayer == null){
+            sender.sendMessage(ChatColor.RED + "[Basics] The player specified wasn't found.");
             return true;
         }
         String mode1 = "WALK";
         String mode3 = "FLY";
-        if(args[2].equalsIgnoreCase(mode1)){
+        if(args[2].equalsIgnoreCase(mode1) && success == true){
             int speed = Integer.parseInt(args[3]);
             chosenPlayer.setWalkSpeed(speed);
             sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just attempted to set the specified player's walkspeed.");
             return true;
         }
-        if(args[2].equalsIgnoreCase(mode3)){
+        if(args[2].equalsIgnoreCase(mode3) && success == true){
             int speed = Integer.parseInt(args[3]);
             chosenPlayer.setFlySpeed(speed);
             sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just attempted to set the specified player's walkspeed.");
