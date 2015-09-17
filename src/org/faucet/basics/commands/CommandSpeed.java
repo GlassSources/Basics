@@ -20,7 +20,6 @@ public class CommandSpeed extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + "You don't have permission.");
             return true;
         }
-
         if (args.length > 3) {
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
@@ -29,26 +28,31 @@ public class CommandSpeed extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
-        Player chosenPlayer = Bukkit.getPlayer(args[3]);
-        boolean success = false;
-        if(chosenPlayer != null){
-            success = true;
-        }else if(chosenPlayer == null){
-            sender.sendMessage(ChatColor.RED + "[Basics] The player specified wasn't found.");
+        double compare = Double.parseDouble(args[1]);
+        double compare2 =  1.0;
+        if(compare > compare2){
+            sender.sendMessage(ChatColor.RED + "[Basics] The maximum speed is 1.");
+            return true;
+        }
+        Player chosenPlayer = Bukkit.getPlayer(args[2]);
+        if(chosenPlayer == null){
+            sender.sendMessage(ChatColor.RED + "[Basics] The player specified cannot be found.");
             return true;
         }
         String mode1 = "WALK";
         String mode3 = "FLY";
-        if(args[2].equalsIgnoreCase(mode1) && success == true){
-            int speed = Integer.parseInt(args[3]);
-            chosenPlayer.setWalkSpeed(speed);
-            sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just attempted to set the specified player's walkspeed.");
+        if(args[0].equalsIgnoreCase(mode1)){
+            double speed = Double.parseDouble(args[1]);
+            float speedFloat = (float) speed;
+            chosenPlayer.setWalkSpeed(speedFloat);
+            sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just successfully attempted to set " + chosenPlayer.getPlayerListName() + "'s walkspeed.");
             return true;
         }
-        if(args[2].equalsIgnoreCase(mode3) && success == true){
-            int speed = Integer.parseInt(args[3]);
-            chosenPlayer.setFlySpeed(speed);
-            sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just attempted to set the specified player's walkspeed.");
+        if(args[0].equalsIgnoreCase(mode3)){
+            double speed = Double.parseDouble(args[1]);
+            float speedFloat = (float) speed;
+            chosenPlayer.setFlySpeed(speedFloat);
+            sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just successfully attempted to set " + chosenPlayer.getPlayerListName() + "'s flyspeed.");
             return true;
         }
         sender.sendMessage(ChatColor.RED + "[Basics] Basics couldn't recongize that. Please try again.");
