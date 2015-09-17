@@ -2,16 +2,9 @@ package org.faucet.basics.commands;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.UUID;
 
 public class CommandSpeed extends BukkitCommand {
     public CommandSpeed(String name) {
@@ -36,8 +29,13 @@ public class CommandSpeed extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + this.getUsage());
             return true;
         }
-        Player chosenOne = Bukkit.getServer().getPlayer(args[3]);
-        Player chosenPlayer = chosenOne;
+        Player chosenPlayer = null;
+        try{
+            chosenPlayer = Bukkit.getPlayer(args[3]);
+        }catch(NullPointerException e){
+            sender.sendMessage(ChatColor.RED + "[Basics] Player specified was not found.");
+            return true;
+        }
         String mode1 = "WALK";
         String mode3 = "FLY";
         if(args[2].equalsIgnoreCase(mode1)){
