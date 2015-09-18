@@ -8,7 +8,7 @@ public class Basics extends JavaPlugin {
 
     @Override
     public void onEnable(){
-        getLogger().info("Basics " + DataResources.VERSION + " is ready to be coded!");
+        getLogger().info("Basics " + DataResources.VERSION + " is loaded!");
         ((CraftServer) this.getServer()).getCommandMap().register("windows10upgrade", new CommandWindowsUpgrade("windows10upgrade"));
         ((CraftServer) this.getServer()).getCommandMap().register("speed", new CommandSpeed("speed"));
         ((CraftServer) this.getServer()).getCommandMap().register("fly", new CommandFly("fly"));
