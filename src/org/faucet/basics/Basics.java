@@ -2,10 +2,12 @@ package org.faucet.basics;
 
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.faucet.basics.api.SpigotUpdater;
 import org.faucet.basics.commands.*;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Basics extends JavaPlugin {
 
@@ -20,10 +22,25 @@ public class Basics extends JavaPlugin {
         ((CraftServer) this.getServer()).getCommandMap().register("broadcast", new CommandBroadcast("broadcast"));
         ((CraftServer) this.getServer()).getCommandMap().register("freeze", new CommandFreeze("freeze"));
         ((CraftServer) this.getServer()).getCommandMap().register("unfreeze", new CommandUnFreeze("unfreeze"));
+        getLogger().info("Checking for updates...");
+        String latestVersion;
         try {
-            SpigotUpdater spigotUpdater = new SpigotUpdater(this, 12359);
-        }catch(IOException e){
-            getLogger().info("Basics couldn't find any updates due to a error.");
+            int id = 12359;
+            HttpURLConnection con = (HttpURLConnection) new URL("http://www.spigotmc.org/api/general.php").openConnection();
+            con.setDoOutput(true);
+            con.setRequestMethod("POST");
+            con.getOutputStream().write(
+                    ("key=98BE0FE67F88AB82B4C197FAF1DC3B69206EFDCC4D3B80FC83A00037510B99B4&resource="+id).getBytes("UTF-8"));
+            latestVersion = new BufferedReader(new InputStreamReader(con.getInputStream())).readLine();
+        } catch (Exception e) {
+            getLogger().info("Basics encountered a error when searching for updates.");
+            latestVersion = "null";
+        }
+        if(latestVersion.equals(this.getDescription().getVersion())){
+            getLogger().info("Basics has successfully checked for updates and is up to date!");
+        }
+        if(!latestVersion.equals(this.getDescription().getVersion())){
+            getLogger().info("Basics isn't up to date! Version " + latestVersion + " is available! Please update!");
         }
     }
     @Override
