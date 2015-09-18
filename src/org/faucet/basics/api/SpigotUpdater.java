@@ -38,6 +38,7 @@ import java.net.URL;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+import org.faucet.basics.DataResources;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -122,6 +123,9 @@ public class SpigotUpdater extends Thread {
 				this.plugin.getLogger().info("[Basics] Found a new version: " + currentVersion + "! (Your version is " + this.plugin.getDescription().getVersion() + ")");
 				this.plugin.getLogger().info("[Basics] Download it here: http://www.spigotmc.org/resources/" + this.id);
 			}
+			if(currentVersion.equals(this.plugin.getDescription().getVersion())){
+                this.plugin.getLogger().info("[Basics] Basics " + DataResources.VERSION + " is at the latest version!");
+            }
 		} catch (IOException e) {
 			if (this.log) {
 				if (connection != null) {
