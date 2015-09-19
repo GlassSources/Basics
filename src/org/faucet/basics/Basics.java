@@ -23,6 +23,7 @@ public class Basics extends JavaPlugin {
         ((CraftServer) this.getServer()).getCommandMap().register("freeze", new CommandFreeze("freeze"));
         ((CraftServer) this.getServer()).getCommandMap().register("unfreeze", new CommandUnFreeze("unfreeze"));
         ((CraftServer) this.getServer()).getCommandMap().register("spawnmob", new CommandSpawn("spawnmob"));
+        ((CraftServer) this.getServer()).getCommandMap().register("lightning", new CommandLightning("lightning"));
         getLogger().info("Checking for updates...");
         String latestVersion;
         try {

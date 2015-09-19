@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 public class CommandSpawn extends BukkitCommand {
     public CommandSpawn(String name) {
         super(name);
-        this.description = "This will freeze the specified player.";
+        this.description = "This will spawn the specified mob to the sender of the command.";
         this.usageMessage = "Usage: /spawnmob <mob>";
         this.setPermission("basics.spawnmob");
     }
