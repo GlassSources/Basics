@@ -22,6 +22,7 @@ public class Basics extends JavaPlugin {
         ((CraftServer) this.getServer()).getCommandMap().register("broadcast", new CommandBroadcast("broadcast"));
         ((CraftServer) this.getServer()).getCommandMap().register("freeze", new CommandFreeze("freeze"));
         ((CraftServer) this.getServer()).getCommandMap().register("unfreeze", new CommandUnFreeze("unfreeze"));
+        ((CraftServer) this.getServer()).getCommandMap().register("spawnmob", new CommandSpawn("spawnmob"));
         getLogger().info("Checking for updates...");
         String latestVersion;
         try {
@@ -30,7 +31,7 @@ public class Basics extends JavaPlugin {
             con.setDoOutput(true);
             con.setRequestMethod("POST");
             con.getOutputStream().write(
-                    ("key=98BE0FE67F88AB82B4C197FAF1DC3B69206EFDCC4D3B80FC83A00037510B99B4&resource="+id).getBytes("UTF-8"));
+                    ("key=98BE0FE67F88AB82B4C197FAF1DC3B69206EFDCC4D3B80FC83A00037510B99B4&resource=" + id).getBytes("UTF-8"));
             latestVersion = new BufferedReader(new InputStreamReader(con.getInputStream())).readLine();
         } catch (Exception e) {
             getLogger().info("Basics encountered a error when searching for updates.");
