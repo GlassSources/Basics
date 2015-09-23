@@ -5,15 +5,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-public class CommandLightning extends BukkitCommand {
-    public CommandLightning(String name) {
+
+public class CommandWorkbench extends BukkitCommand {
+    public CommandWorkbench(String name) {
         super(name);
-        this.description = "This will send a lightning strike to the specified player.";
-        this.usageMessage = "Usage: /lightning <player>";
-        this.setPermission("basics.lightning");
+        this.description = "This will open the workbench gui to the specified player.";
+        this.usageMessage = "Usage: /workbench <player>";
+        this.setPermission("basics.workbench");
     }
 
     @Override
@@ -36,9 +36,8 @@ public class CommandLightning extends BukkitCommand {
             return true;
         }
         Location chosenPlayerLocation = chosenPlayer.getLocation();
-        String chosenPlayerWorld = chosenPlayer.getWorld().getName();
-        Bukkit.getServer().getWorld(chosenPlayerWorld).spawnEntity(chosenPlayerLocation, EntityType.LIGHTNING);
-        sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just successfully sent a lightning strike to: " + chosenPlayer.getPlayerListName());
+        chosenPlayer.openWorkbench(chosenPlayerLocation, true);
+        sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just successfully opened workbench to: " + chosenPlayer.getPlayerListName());
     return true;
 }
 }

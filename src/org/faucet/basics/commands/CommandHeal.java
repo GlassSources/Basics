@@ -8,12 +8,12 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-public class CommandLightning extends BukkitCommand {
-    public CommandLightning(String name) {
+public class CommandHeal extends BukkitCommand {
+    public CommandHeal(String name) {
         super(name);
-        this.description = "This will send a lightning strike to the specified player.";
-        this.usageMessage = "Usage: /lightning <player>";
-        this.setPermission("basics.lightning");
+        this.description = "This will freeze the specified player.";
+        this.usageMessage = "Usage: /heal <player>";
+        this.setPermission("basics.heal");
     }
 
     @Override
@@ -35,10 +35,9 @@ public class CommandLightning extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + "[Basics] The player specified cannot be found.");
             return true;
         }
-        Location chosenPlayerLocation = chosenPlayer.getLocation();
-        String chosenPlayerWorld = chosenPlayer.getWorld().getName();
-        Bukkit.getServer().getWorld(chosenPlayerWorld).spawnEntity(chosenPlayerLocation, EntityType.LIGHTNING);
-        sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just successfully sent a lightning strike to: " + chosenPlayer.getPlayerListName());
+        double MaxHealth = chosenPlayer.getMaxHealth();
+        chosenPlayer.setHealth(MaxHealth);
+        sender.sendMessage(ChatColor.GREEN + "[Basics] Basics has just successfully healed: " + chosenPlayer.getPlayerListName());
     return true;
 }
 }
