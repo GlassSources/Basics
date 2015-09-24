@@ -54,10 +54,11 @@ public class Basics extends JavaPlugin {
                 getLogger().info("Please report this error as FAIL_BADID to FaucetTeam immediately.");
                 break;
             case FAIL_APIKEY:
-                // Bad API key: The user provided an invalid API key for the updater to use.
+                getLogger().info("Please report this as INVALIDAPIKEY.");
                 break;
             case UPDATE_AVAILABLE:
-                // There was an update found, but because you had the UpdateType set to NO_DOWNLOAD, it was not downloaded.
+               getLogger().info("Basics found a update! " + updater.getLatestName() + " is now available.");
+                break;
         }
     }
     @Override
