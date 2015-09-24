@@ -2,7 +2,9 @@ package org.faucet.basics;
 
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.faucet.basics.api.Updater;
 import org.faucet.basics.commands.*;
+import org.faucet.drip.plugin.SpigotPlugin;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -30,24 +32,32 @@ public class Basics extends JavaPlugin {
         ((CraftServer) this.getServer()).getCommandMap().register("workbench", new CommandWorkbench("workbench"));
         ((CraftServer) this.getServer()).getCommandMap().register("time", new CommandTime("time"));
         getLogger().info("Checking for updates...");
-        String latestVersion;
-        try {
-            int id = 12359;
-            HttpURLConnection con = (HttpURLConnection) new URL("http://www.spigotmc.org/api/general.php").openConnection();
-            con.setDoOutput(true);
-            con.setRequestMethod("POST");
-            con.getOutputStream().write(
-                    ("key=98BE0FE67F88AB82B4C197FAF1DC3B69206EFDCC4D3B80FC83A00037510B99B4&resource=" + id).getBytes("UTF-8"));
-            latestVersion = new BufferedReader(new InputStreamReader(con.getInputStream())).readLine();
-        } catch (Exception e) {
-            getLogger().info("Basics encountered a error when searching for updates.");
-            latestVersion = "null";
-        }
-        if(latestVersion.equals(this.getDescription().getVersion())){
-            getLogger().info("Basics has successfully checked for updates and is up to date!");
-        }
-        if(!latestVersion.equals(this.getDescription().getVersion())){
-            getLogger().info("Basics isn't up to date! Version " + latestVersion + " is available! Please update!");
+        Updater updater = new Updater(this, 95176, this.getFile(), Updater.UpdateType.NO_DOWNLOAD, false);
+        Updater.UpdateResult shouldUpdate = updater.getResult();
+        switch(shouldUpdate)
+        {
+            case SUCCESS:
+                break;
+            case NO_UPDATE:
+                getLogger().info("Basics is at the latest version at: " + this.getDescription().getVersion());
+                break;
+            case DISABLED:
+                getLogger().info("Basics couldn't check for updates due to the configuration disabling it.");
+                break;
+            case FAIL_DBO:
+                getLogger().info("Basics couldn't contact dev.bukkit.org, somehow..");
+                break;
+            case FAIL_NOVERSION:
+                getLogger().info("Please report this error as FAIL_NOVERSION to FaucetTeam immediately.");
+                break;
+            case FAIL_BADID:
+                getLogger().info("Please report this error as FAIL_BADID to FaucetTeam immediately.");
+                break;
+            case FAIL_APIKEY:
+                // Bad API key: The user provided an invalid API key for the updater to use.
+                break;
+            case UPDATE_AVAILABLE:
+                // There was an update found, but because you had the UpdateType set to NO_DOWNLOAD, it was not downloaded.
         }
     }
     @Override
